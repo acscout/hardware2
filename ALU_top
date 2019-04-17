@@ -1,0 +1,62 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 04/09/2019 12:54:33 PM
+-- Design Name: 
+-- Module Name: ALU_top - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity ALU_top is
+Port ( 
+a,b : in std_logic_vector (31 downto 0);
+bin : in std_logic;
+op : in std_logic_vector(1 downto 0);
+z : out std_logic_vector(31 downto 0);
+overflow : out std_logic;
+zeroflag : out std_logic
+);
+end ALU_top;
+
+architecture Behavioral of ALU_top is
+ component ALU_simple 
+       port(
+       a,b : in std_logic_vector (31 downto 0);
+       cin : in std_logic;
+       bin : in std_logic;
+       op : in std_logic_vector(1 downto 0);
+       z : out std_logic_vector(31 downto 0);
+       overflow : out std_logic;
+       zeroflag : out std_logic
+       );
+   end component;
+signal zero : std_logic;
+begin
+zero <= '0'; 
+SA: ALU_simple port map(a=>a,b=>b,cin=>zero,bin=>bin,op=>op,z=>z,overflow=>overflow,zeroflag=>zeroflag);
+
+end Behavioral;
