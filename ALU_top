@@ -34,8 +34,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity ALU_top is
 Port ( 
 a,b : in std_logic_vector (31 downto 0);
-bin : in std_logic;
-op : in std_logic_vector(1 downto 0);
+--bin : in std_logic;
+--op : in std_logic_vector(4 downto 0);
+func: in std_logic_vector(5 downto 0);
+ALUop : in std_logic_vector(1 downto 0);
 z : out std_logic_vector(31 downto 0);
 overflow : out std_logic;
 zeroflag : out std_logic
@@ -54,9 +56,47 @@ architecture Behavioral of ALU_top is
        zeroflag : out std_logic
        );
    end component;
-signal zero : std_logic;
+ component Shifting_entity
+        port(
+        a : in std_logic_vector (31 downto 0);
+        dir : in std_logic;
+        z : out std_logic_vector (31 downto 0)
+        );
+ end component;
+ component MSB_unit
+    port (
+    func : in std_logic_vector(5 downto 0);
+    ALUop : in std_logic_vector(1 downto 0);
+    bin,opShift : out std_logic;
+    outputControl : out std_logic_vector(1 downto 0)
+    );
+ end component;
+signal outputControl,opALU : std_logic_vector(1 downto 0);
+signal opShift,overflowTemp,bin: std_logic;
+signal ALUz, Shiftz, SLTz : std_logic_vector(31 downto 0);
 begin
-zero <= '0'; 
-SA: ALU_simple port map(a=>a,b=>b,cin=>zero,bin=>bin,op=>op,z=>z,overflow=>overflow,zeroflag=>zeroflag);
+
+
+--opALU <= op(1 downto 0);
+--opShift <= op(2);
+--outputControl <= op(4 downto 3);
+
+SMSB : MSB_unit port map(func=>func,ALUop=>ALUop,bin=>bin,outputControl=>outputControl,opShift=>opShift); 
+SA: ALU_simple port map(a=>a,b=>b,cin=>bin,bin=>bin,op=>opALU,z=>ALUz,overflow=>overflowTemp,zeroflag=>zeroflag);
+SS: Shifting_entity port map(a=>a,dir=>opShift,z=>Shiftz);
+ 
+ 
+process
+begin
+for i in 0 to 31 loop
+    SLTz(i) <= overflowTemp;
+    wait for 1 ns;
+end loop;
+end process; 
+ 
+overflow <= overflowTemp;   
+z <= ALUz when (outputControl = "00") else
+     Shiftz when (outputControl = "01") else
+     SLTz;     
 
 end Behavioral;
