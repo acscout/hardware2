@@ -45,7 +45,7 @@ end ALU_simple;
 
 architecture Behavioral of ALU_simple is
 signal c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30,c31 : std_logic;
-signal ztemp : std_logic_vector(31 downto 0);
+signal ztemp, bIntemp : std_logic_vector(31 downto 0);
 
     component One_bit_ALU
         port(
@@ -56,6 +56,24 @@ signal ztemp : std_logic_vector(31 downto 0);
         );
     end component;
 begin
+
+--process
+--begin
+--if bin = '1' then
+--for i in 0 to 31 loop
+--    bInTemp(i) <= '1';
+--        wait for 1 ns;
+--end loop;
+--else
+--for i in 0 to 31 loop
+--   bInTemp(i) <= '0';
+--    wait for 1 ns;
+--end loop;
+--end if;
+--end process;
+
+   
+
 SA0 : One_bit_ALU port map(a=>a(0),b=>b(0),cin=>cin,bin=>bin,op=>op,result=>ztemp(0),cout=>c1);
 SA1 : One_bit_ALU port map(a=>a(1),b=>b(1),cin=>c1,bin=>bin,op=>op,result=>ztemp(1),cout=>c2);
 SA2 : One_bit_ALU port map(a=>a(2),b=>b(2),cin=>c2,bin=>bin,op=>op,result=>ztemp(2),cout=>c3);
@@ -92,5 +110,3 @@ SA31 : One_bit_ALU port map(a=>a(31),b=>b(31),cin=>c31,bin=>bin,op=>op,result=>z
 z <= ztemp;
 zeroflag <= '1' when(ztemp = "00000000000000000000000000000000") else
             '0';
-
-end Behavioral;
