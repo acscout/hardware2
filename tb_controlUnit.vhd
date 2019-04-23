@@ -40,7 +40,6 @@ architecture Behavioral of tb_controlUnit is
 
 component top_controlUnit is
     Port (
-        reset: in STD_LOGIC;
         opcode: in STD_LOGIC_VECTOR(5 downto 0);
         regDst: out STD_LOGIC;
         jump  : out STD_LOGIC;
@@ -54,7 +53,6 @@ component top_controlUnit is
     );
 end component;
 
-signal reset: STD_LOGIC;
 signal opcode: STD_LOGIC_VECTOR(5 downto 0) :=(others=>'1');
 signal regDst: STD_LOGIC := '0';
 signal jump  : STD_LOGIC := '0';
@@ -69,7 +67,6 @@ signal regWrite: STD_LOGIC := '0';
 begin
  u1: top_controlUnit
     PORT MAP (
-        reset=>reset,
         opcode=>opcode,
         regDst=>regDst,
         jump=>jump,
@@ -86,29 +83,55 @@ process
         wait for 10 ns;
         opcode<="100000";
         wait for 10 ns;
+        opcode<="111111";
+        wait for 10 ns;
         opcode<="100010";
+        wait for 10 ns;
+        opcode<="111111";
         wait for 10 ns;
         opcode<="100100";
         wait for 10 ns;
+        opcode<="111111";
+        wait for 10 ns;
         opcode<="100101";
+        wait for 10 ns;
+        opcode<="111111";
         wait for 10 ns;
         opcode<="000000";
         wait for 10 ns;
+        opcode<="111111";
+        wait for 10 ns;
         opcode<="000010";
+        wait for 10 ns;
+        opcode<="111111";
         wait for 10 ns;
         opcode<="101010";
         wait for 10 ns;
+        opcode<="111111";
+        wait for 10 ns;
         opcode<="001000";
+        wait for 10 ns;
+        opcode<="111111";
         wait for 10 ns;
         opcode<="001101";
         wait for 10 ns;
+        opcode<="111111";
+        wait for 10 ns;
         opcode<="001111";
+        wait for 10 ns;
+        opcode<="111111";
         wait for 10 ns;
         opcode<="100011";
         wait for 10 ns;
+        opcode<="111111";
+        wait for 10 ns;
         opcode<="101011";
         wait for 10 ns;
+        opcode<="111111";
+        wait for 10 ns;
         opcode<="000100";
+        wait for 10 ns;
+        opcode<="111111";
         wait for 10 ns;
         opcode<="000011";
         
