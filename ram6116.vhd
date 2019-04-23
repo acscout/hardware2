@@ -46,14 +46,14 @@ entity ram6116 is
         constant t_DH: Time := 0 ns; --Data hold from end of write
         constant t_OW: Time := 10 ns); --Output active from end of write
 
-    Port(address: in unsigned(6 downto 0);
-        data: inout std_logic_vector(6 downto 0);
+    Port(address: in unsigned(5 downto 0);
+        data: inout std_logic_vector(5 downto 0);
         WE_b, CS_b, OE_b: in std_ulogic
     );
 end entity ram6116;
 
 architecture SRAM of ram6116 is
-    type ram_type is array(0 to 2**6) of std_logic_vector(6 downto 0);
+    type ram_type is array(0 to 2**6) of std_logic_vector(5 downto 0);
     signal ram1: ram_type := (others => (others => '0'));
 
 begin
