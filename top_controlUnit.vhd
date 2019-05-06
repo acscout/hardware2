@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: 
--- 
+-- Russell Reding
 -- Create Date: 04/17/2019 06:37:37 PM
 -- Design Name: 
 -- Module Name: top_controlUnit - Behavioral
@@ -9,7 +9,7 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
--- 
+-- Set the control inputs of the other componenets based on the opcode of the MIPS instruction
 -- Dependencies: 
 -- 
 -- Revision:
@@ -17,7 +17,6 @@
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -105,7 +104,7 @@ begin
             branch <= '0';
             memRead <= '0';
             memToReg <= '0';
-            ALUOp <= "10";
+            ALUOp <= "01";
             memWrite <= '0';
             ALUScr <= '0';
             regWrite <= '1';
@@ -116,7 +115,7 @@ begin
             branch <= '0';
             memRead <= '0';
             memToReg <= '0';
-            ALUOp <= "10";
+            ALUOp <= "01";
             memWrite <= '0';
             ALUScr <= '0';
             regWrite <= '1';
@@ -127,7 +126,7 @@ begin
             branch <= '0';
             memRead <= '0';
             memToReg <= '0';
-            ALUOp <= "10";
+            ALUOp <= "11";
             memWrite <= '0';
             ALUScr <= '0';
             regWrite <= '1';
@@ -140,7 +139,7 @@ begin
             branch <= '0';
             memRead <= '0';
             memToReg <= '0';
-            ALUOp <= "00";
+            ALUOp <= "10";
             memWrite <= '0';
             ALUScr <= '1';
             regWrite <= '1';
@@ -151,7 +150,7 @@ begin
             branch <= '0';
             memRead <= '0';
             memToReg <= '0';
-            ALUOp <= "00";
+            ALUOp <= "10";
             memWrite <= '0';
             ALUScr <= '1';
             regWrite <= '1';
@@ -195,7 +194,7 @@ begin
             branch <= '1';
             memRead <= '0';
             memToReg <= '0';
-            ALUOp <= "01";
+            ALUOp <= "10";
             memWrite <= '0';
             ALUScr <= '0';
             regWrite <= '0';
